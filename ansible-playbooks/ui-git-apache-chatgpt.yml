@@ -1,0 +1,39 @@
+---
+- name: Install and Configure Apache
+  hosts: aws-servers
+  become: yes
+
+  tasks:
+    - name: Install apache2 package
+      apt:
+        name: apache2
+        update_cache: yes
+        state: latest
+
+    - name: Enable Mod Rewrite
+      apache2_module:
+        name: rewrite
+        state: present
+
+    - name: Clone git repository
+      git:
+        repo: 'https://github.com/HandsOnDevOpsTraining/docker-sample-ui-app.git'
+        dest: /var/www/html/code
+        version: main
+        force: yes
+
+    - name: Move files
+      copy:
+        src: /var/www/html/code/website/
+        dest: /var/www/html/
+        directory_mode: yes
+        remote_src: no
+
+    - name: Restart Service
+      service:
+        name: apache2
+        state: restarted
+
+  tags:
+    - apache
+    - deployment

@@ -1,0 +1,19 @@
+- hosts: aws-servers
+  become: 'yes'
+  tasks:
+    - name: Install apache2 package
+      apt: name=apache2 update_cache=yes state=latest
+    - name: Enable Mod Rewrite
+      apache2_module: name=rewrite state=present
+    - git:
+        repo: 'https://github.com/HandsOnDevOpsTraining/docker-sample-ui-app.git'
+        dest: /var/www/html/code
+        version: main
+        force: yes
+    - copy:
+        src: /var/www/html/code/website/
+        dest: /var/www/html/
+        remote_src: no
+        directory_mode: yes
+    - name: Restart Service
+      service: name=apache2 state=restarted

@@ -44,7 +44,7 @@
    - wget https://raw.githubusercontent.com/lankamadangit/ansible/main/ansible-playbooks/apache.yml
    - ansible-playbook apache.yml -i ansible_hosts -vv
 
-   - ansible-playbook apache.yml -i ansible_hosts -vv
+   - ansible-playbook ui-git-apache-chatgpt.yml -i ansible_hosts -vv
    - 
    - 
 

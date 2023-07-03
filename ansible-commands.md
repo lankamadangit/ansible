@@ -41,9 +41,10 @@
    - Other ansible commands
    - ansible -m shell -a "apt update && apt -y install tree" aws-servers -i ansible_hosts
    - 
-   - 
-   - 
-   - 
+   - wget https://raw.githubusercontent.com/lankamadangit/ansible/main/ansible-playbooks/apache.yml
+   - ansible-playbook apache.yml -i ansible_hosts -vv
+
+   - ansible-playbook apache.yml -i ansible_hosts -vv
    - 
    - 
 

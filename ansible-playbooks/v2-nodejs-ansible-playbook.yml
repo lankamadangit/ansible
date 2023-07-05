@@ -1,0 +1,21 @@
+- hosts: aws-servers
+  become: true
+  tasks:
+    - name: Install NodeJS package
+      apt:
+        name:
+          - nodejs
+          - npm
+          - unzip
+        update_cache: yes
+        state: present
+    - name: Copy NodeJS code on Application Servers
+      copy: src=artifact.zip dest=/tmp/artifact.zip remote_src=no
+    - name: Extract code
+      unarchive: src=/tmp/artifact.zip dest=/opt/ remote_src=True
+    - name: Run Node Install
+      shell: | 
+        npm install
+        npm run start &
+      args:
+        chdir: /opt/ansible-nodejs-main

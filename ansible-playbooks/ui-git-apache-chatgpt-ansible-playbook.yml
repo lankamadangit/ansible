@@ -10,7 +10,7 @@
         update_cache: yes
         state: latest
 
-    - name: Enable Mod Rewrite
+    - name: Enable Module Rewrite
       apache2_module:
         name: rewrite
         state: present
